@@ -1,6 +1,7 @@
 # What is a container? :whale:
-Un contendor es una forma de poder empaquetar nuestras aplicaciones, con todas las
-dependencias que este tenga, **incluyendo sus archivos de configuracion** 
+
+Lightweight, standline, and executable software package that includes
+everything needed to run a piece of software.
 
 ## The container can to store:
 - Archivos nodejs
@@ -106,7 +107,7 @@ Si alguna aplicación dentro de tu contenedor necesita ser accesible desde fuera
 
 Entonces podemos decir que cualquier conexión o solicitud que llegue al puerto 'x' de la maquina host, será mapeada al puerto 'y' del contenedor.
 
-<img src="latex/img/port_mapping.png" alt="Port Mapping">
+![Port Mapping](./.github/port_mapping.png)
 
 ---
 > Crear un contenedor con por mapping
