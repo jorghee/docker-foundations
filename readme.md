@@ -129,20 +129,24 @@ Finally Developers and Operations are friends and we work together as a team
 
 ## 4. Port Mapping
 
-Docker utiliza un modelo de red en el que los contenedores se ejecutan en su propia red aislada. Por defecto, los contenedores no pueden ser accedidos desde fuera de esta red aislada
+When we wanna connect to our PostgreSQL database from outside Docker will throw a exception because it running in an isolated environment belongs to Docker. Therefore, we need to expose ports.
 
-Si alguna aplicación dentro de tu contenedor necesita ser accesible desde fuera de este, necesitas especificar explícitamente qué puertos del contenedor deben ser mapeados a puertos en la máquina host.
+![Several containers](./.github/1774484549.png)
 
-Entonces podemos decir que cualquier conexión o solicitud que llegue al puerto 'x' de la maquina host, será mapeada al puerto 'y' del contenedor.
+Our PostgreSQL is running on the 5432 port and we have two instances, maybe they have different  PostgreSQL version.
+
+> [!IMPORTANT]
+> We can use the same internal (container) port for many different Docker containers, provided they are in their own isolated network namespaces (the default Docker bridge networking behavior). This is a core feature of Docker's isolation.
+
+> [!CAUTION]
+> But, when it comes to the host and the port that we want to expose for the host we cannot expose two times the same port. If we do that and try to bind (e.g. change 1234 by 5432), we get message Port already in use.
+
+```bash
+docker run -p <HOST_PORT>:<CONTAINER_PORT> <IMAGE> # --publish a container's port(s) to the host
+```
+
 
 ![Port Mapping](./.github/port_mapping.png)
-
-> Crear un contenedor con por mapping
-
-```sh
-$ docker create -p <PORT_HOST_MACHINE>:<PORT_CONTAINER> --name <NAME_CONTAINER> <IMAGE>
-
-```
 
 ## Questions
 1. Por qué cuando creo e inicio manualmente un contenedor con una imagen de ubuntu:20.04, el contenedor se inicia y se detiene inmediatamente.
