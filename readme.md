@@ -148,9 +148,29 @@ docker run -p <HOST_PORT>:<CONTAINER_PORT> <IMAGE> # --publish a container's por
 
 ![Port Mapping](./.github/port_mapping.png)
 
+## 5. `DOCKERFILE`
+
+It’s a text file containing a series of instructions that define how to build a docker image for specific application or service like the base image, dependencies, configuration, and other required components.
+
+![base_dockerfile.png](./.github/base_dockerfile.png)
+
+> [!IMPORTANT]
+> Minimizing the number of layers and leveraging caching can significantly reduce build times and image sizes.
+
 ## Questions
-1. Por qué cuando creo e inicio manualmente un contenedor con una imagen de ubuntu:20.04, el contenedor se inicia y se detiene inmediatamente.
 
-2. Por qué al crear e iniciar dicho contenedor con el comando 'run' y pasandole la opcion -it recien el contenedor comienza y no se detiene inmediatamente.
+- **What is the difference between `run` and `start` commands?**
+    
+    **`docker run`** creates a *new* container from an image and starts it. It combines three operations: pulling the image (if not present), creating a container, and starting it.
+    
+    **`docker start`** starts an *existing* container that was previously created but is currently stopped. It resumes a container that already exists.
+   
+- **Why my container is exited immediately when I executed `docker start <NAME>` ?**
+    
+    This happens in PostgreSQL image because the official PostgreSQL image requires a password to be set during the initial creation. Without it, the database fails to initialize and the process shuts down immediately.
 
-3. Si partimos de la idea de que al hacer manual el inicio del contenedor, nosotros no estamos pasando ningún proceso al contenedor y es por ello que se detiene inmediatamente. Entonces por qué cuando detengo el contenedor y lo deseo iniciar nuevamente, y lo hago con el comando 'start' recien ahora pasa que el contenedor no se detiene inmediatamente.
+- Por qué cuando creo e inicio manualmente un contenedor con una imagen de ubuntu:20.04, el contenedor se inicia y se detiene inmediatamente.
+
+- Por qué al crear e iniciar dicho contenedor con el comando 'run' y pasandole la opcion -it recien el contenedor comienza y no se detiene inmediatamente.
+
+- Si partimos de la idea de que al hacer manual el inicio del contenedor, nosotros no estamos pasando ningún proceso al contenedor y es por ello que se detiene inmediatamente. Entonces por qué cuando detengo el contenedor y lo deseo iniciar nuevamente, y lo hago con el comando 'start' recien ahora pasa que el contenedor no se detiene inmediatamente.
