@@ -148,6 +148,11 @@ docker run -p <HOST_PORT>:<CONTAINER_PORT> <IMAGE> # --publish a container's por
 
 ![Port Mapping](./.github/port_mapping.png)
 
+> [!IMPORTANT]
+> It's not you who makes port `5432` listen on your machine. Docker does it automatically when you declare the `-p` flag. Internally, Docker spins up a proxy process that listens on that host port and forwards traffic into the container.
+
+![Listening ports](./.github/1775076693.png)
+
 ## 5. `DOCKERFILE`
 
 It’s a text file containing a series of instructions that define how to build a docker image for specific application or service like the base image, dependencies, configuration, and other required components.
