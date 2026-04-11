@@ -162,6 +162,43 @@ It’s a text file containing a series of instructions that define how to build 
 > [!IMPORTANT]
 > Minimizing the number of layers and leveraging caching can significantly reduce build times and image sizes.
 
+### Hands-on with [Tetoca](https://github.com/jorghee/tetoca-api) project
+
+We’re gonna create our PostgreSQL container to try to connect us from host machine. After that, we try clean and package our Spring project.
+
+```bash
+docker run --name tetoca-workspace -p 5432:5432 -d \
+ -e POSTGRES_PASSWORD=postgres \
+ -e POSTGRES_DB=BD_TETOCA_GLOBAL \
+ -v tetoca-safe:/var/lib/postgres/data \
+ postgres:14.22-trixie
+
+# From project root directory
+./mvnw clean package
+```
+
+We will see a `.jar` file within `/target` project directory. Now, we’re gonna use this file to build our `Dockerfile` file.
+
+Because in order to run a Java application all we need to do is to have `openjdk`
+
+```dockerfile
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /tetoca
+
+COPY ./target/tetoca-api-0.0.1-SNAPSHOT.jar tetoca-api.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "tetoca-api.jar"]
+```
+
+Then, we build our application using `build` command
+
+```bash
+docker build -t tetoca-api .  # From project root directory
+```
+
 ## Questions
 
 - **What is the difference between `run` and `start` commands?**
